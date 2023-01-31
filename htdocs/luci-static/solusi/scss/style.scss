@@ -1,0 +1,276 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./font.scss";
+
+:root {
+  --sidebar: 16rem;
+  --logo-height: 5rem;
+}
+
+body {
+  @apply bg-gray-100 text-gray-800;
+}
+
+h2 {
+  @apply text-3xl mb-3 font-semibold;
+}
+h3 {
+  @apply text-2xl font-medium p-4 rounded-t-md bg-white;
+}
+
+header {
+  @apply top-0 w-full h-[var(--logo-height)] bg-primary z-10 shadow-md;
+
+  .fill {
+    @apply max-w-full w-full h-full;
+
+    .container {
+      @apply max-w-full w-full h-full flex items-center;
+
+      #logo {
+        @apply h-full left-0 w-[var(--sidebar)]  z-10 flex justify-center p-5;
+      }
+
+      #indicators {
+        @apply ml-auto mr-6;
+        span {
+          @apply bg-white text-primary font-semibold py-1 px-4 uppercase text-sm rounded-md cursor-pointer;
+        }
+      }
+    }
+  }
+}
+
+.main-left {
+  @apply fixed top-0 left-0 w-[var(--sidebar)] bg-white h-screen overflow-y-scroll shadow-md;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sidenav-header {
+    .brand {
+      @apply w-full flex justify-center p-6 text-4xl font-bold bg-gradient-to-br from-primary to-emerald-100;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .nav .slide {
+    @apply mx-2;
+
+    .slide-menu {
+      @apply h-0 overflow-hidden;
+      
+      &.active {
+        @apply h-auto;
+      }
+
+      li {
+        @apply border-b-2 border-transparent ml-6 mb-1 relative;
+
+        &::before {
+          @apply w-0 h-0.5 bg-primary absolute bottom-0 left-0 duration-200 rounded-full;
+          content: "";
+        }
+
+        a {
+          @apply px-2 py-1.5 block;
+        }
+        &.active,
+        &:hover {
+          &::before {
+            @apply w-full;
+          }
+        }
+      }
+    }
+
+    & > a {
+      @apply py-2 px-3 mb-1 block rounded-md duration-200;
+
+      &.active,
+      &:hover {
+        @apply bg-primary text-white;
+      }
+    }
+
+    .menu {
+      @apply align-middle flex items-center;
+      &::before {
+        @apply text-xl mr-3;
+        font-family: "IcoFont";
+      }
+      &[data-title="Status"]::before {
+        @apply text-primary;
+        content: "\eef2";
+      }
+      &[data-title="System"]::before {
+        @apply text-rose-400;
+        content: "\ef3a";
+      }
+      &[data-title="Modem"]::before {
+        @apply text-emerald-300;
+        content: "\efa4";
+      }
+      &[data-title="Services"]::before {
+        @apply text-sky-300;
+        content: "\ef3b";
+      }
+      &[data-title="NAS"]::before {
+        @apply text-orange-400;
+        content: "\eeff";
+      }
+      &[data-title="Network"]::before {
+        @apply text-purple-400;
+        content: "\efa5";
+      }
+
+      &.active::before,
+      &:hover::before {
+        @apply text-white;
+      }
+    }
+  }
+
+  .nav > li:not(.slide) {
+    @apply border-t pt-4 mt-4 pb-2;
+    & > a {
+      @apply block p-2 relative duration-200 mx-2 rounded-md;
+
+      &:hover {
+        @apply bg-primary text-white;
+      }
+    }
+  }
+}
+
+.main-right {
+  #maincontent {
+    @apply w-[calc(100%-var(--sidebar))] ml-[var(--sidebar)] p-8 overflow-y-scroll top-0 relative;
+
+    .cbi-map-descr {
+      @apply text-gray-500;
+    }
+
+    .cbi-section {
+      @apply bg-white mt-6 rounded-md shadow-md;
+    }
+
+    .table {
+      @apply w-full bg-white;
+
+      .tr {
+        @apply relative h-12 border-t;
+
+        &:last-child {
+          @apply border-b;
+        }
+
+        &.placeholder {
+          @apply h-12 w-full;
+
+          & > td {
+            @apply absolute left-0 w-full right-0 h-12 flex items-center justify-center;
+          }
+        }
+      }
+
+      th,
+      td {
+        @apply py-3 px-4 text-center;
+
+        &.left {
+          @apply text-left;
+        }
+      }
+    }
+
+    .cbi-progressbar {
+      @apply w-full h-8 bg-gray-200 rounded-lg relative border;
+
+      &::after {
+        @apply absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 text-sm font-semibold text-white;
+        content: attr(title);
+      }
+
+      & > div {
+        @apply h-full bg-primary rounded-lg;
+      }
+    }
+
+    .network-status-table {
+      @apply flex space-x-3 px-4;
+
+      .ifacebox {
+        @apply border rounded-md mb-3 w-full overflow-hidden;
+
+        .ifacebox-head {
+          @apply p-2 bg-gray-200;
+
+          &.active {
+            @apply bg-primary text-white;
+          }
+        }
+        .ifacebox-body {
+          @apply p-4;
+
+          span {
+            @apply block;
+          }
+
+          br {
+            @apply hidden;
+          }
+
+          & > span {
+            @apply mb-3;
+          }
+
+          .ifacebadge {
+            @apply bg-gray-200 rounded-md p-3 flex items-center space-x-3;
+
+            img {
+              @apply h-6;
+            }
+          }
+        }
+      }
+    }
+
+    .cbi-tabmenu {
+      @apply flex w-full;
+
+      .cbi-tab {
+        @apply bg-white;
+      }
+    }
+
+    .cbi-tabmenu {
+      @apply flex mt-3;
+
+      .cbi-tab,
+      .cbi-tab-disabled {
+        @apply py-2 px-3 mx-1 rounded-t-md bg-gray-300;
+      }
+
+      .cbi-tab {
+        @apply bg-primary text-white;
+      }
+    }
+
+    [data-tab-active="false"] {
+      @apply hidden;
+    }
+  }
+}
+
+.loading {
+  @apply fixed z-10 top-[var(--logo-height)] left-0 w-[calc(100%-var(--sidebar))] bg-white p-2 ml-[var(--sidebar)];
+}
+
+footer {
+  @apply mt-4;
+}

@@ -1,0 +1,6 @@
+#!/bin/sh
+	uci batch <<-EOF
+        set luci.themes.Solusi=/luci-static/solusi
+        commit luci
+	EOF
+exit 0
